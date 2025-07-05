@@ -1,0 +1,63 @@
+static Boolean isSubsetSum(int arr[], int sum) { 
+
+         
+
+        int n = arr.length; 
+
+        boolean[][] dp = new boolean[n + 1][sum + 1]; 
+
+  
+
+        // Base case: If sum == 0, then answer is true (empty subset) 
+
+        for (int i = 0; i <= n; i++) { 
+
+            dp[i][0] = true; 
+
+        } 
+
+  
+
+        // Base case: If array is empty and sum > 0, then answer is false 
+
+        for (int j = 1; j <= sum; j++) { 
+
+            dp[0][j] = false; 
+
+        } 
+
+  
+
+        // Fill the dp array 
+
+        for (int i = 1; i <= n; i++) { 
+
+            for (int j = 1; j <= sum; j++) { 
+
+                // Exclude the current element 
+
+                dp[i][j] = dp[i - 1][j]; 
+
+  
+
+                // Include the current element if it's <= sum 
+
+                if (arr[i - 1] <= j) { 
+
+                    dp[i][j] = dp[i][j] || dp[i - 1][j - arr[i - 1]]; 
+
+                } 
+
+            } 
+
+        } 
+
+  
+
+        // Return the final result 
+
+        return dp[n][sum]; 
+
+    } 
+
+ 
